@@ -27,7 +27,7 @@ Everything you did before happened by clicking test cards on the **Control** tab
 
 In the next phase, you package this same logic as a module. For now, a script you run from your own terminal, that you can stop, edit, and rerun in seconds, is the faster path to a working pick-and-place loop.
 
-Every control you clicked in the UI maps directly onto an SDK method: the arm card's joint controls become `Arm` methods, **Grab** and **Open** on the gripper card become `gripper.grab()` and `gripper.open()`, and setting a switch to position 2 becomes `switch.set_position(2)`. Once you can call those methods from code, you can compose them into logic no UI card lets you express by clicking.
+Every control you clicked in the UI maps directly onto an SDK method: the arm card's joint controls become `Arm` methods, **Grab** and **Open** on the gripper card become `gripper.grab()` and `gripper.open()`, and setting a switch to its "go to" function (index 2) becomes `switch.set_position(2)`. Once you can call those methods from code, you can compose them into logic no UI card lets you express by clicking.
 
 ## Get the companion project
 
@@ -107,6 +107,38 @@ print(machine.resource_names)
 {{< /checkpoint >}}
 
 ### Second run: drive the arm
+
+When we were controlling the arm by hand we had this sequence:
+
+```text
+home-pose:go-to
+approach-pose:go-to
+gripper:open
+grasp-pose:go-to
+gripper:grab
+travel-pose:go-to
+place-pose:go-to
+gripper:open
+home-pose:go-to
+```
+
+Now when we are changing that to code we have to use functions and the correct index of the switches controls.
+
+{{<imgproc src="/tutorials/pick-and-place/switch-test-panel.png" resize="1200x" declaredimensions=true alt="A small screenshot of the test panel of the switch trying to show the three options">}}
+
+So the above them becomes:
+
+```text
+home-pose(2)
+approach-pose(2)
+gripper:open
+grasp-pose(2)
+gripper:grab
+travel-pose(2)
+place-pose(2)
+gripper:open
+home-pose(2)
+```
 
 With the connection and resource names confirmed, uncomment the static sequence block in the starter script (the lines under `TODO 4`). This is the same sequence you tested by hand from the **Control** tab at the end of Phase 3, now expressed as code instead of button clicks. On a switch, `set_position(2)` executes the pose it has saved:
 
