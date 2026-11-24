@@ -280,9 +280,15 @@ You can check your obstacle configuration against the companion repo's [obstacle
 From the **Control** tab, trigger the pose switches in this order:
 
 ```text
-home-pose (2) -> approach-pose (2) -> Open gripper ->
-grasp-pose (2) -> Grab -> travel-pose (2) ->
-place-pose (2) -> Open gripper -> home-pose (2)
+home-pose:go-to
+approach-pose:go-to
+gripper:open
+grasp-pose:go-to
+gripper:grab
+travel-pose:go-to
+place-pose:go-to
+gripper:open
+home-pose:go-to
 ```
 
 The **Open** and **Grab** buttons are the same gripper controls you used in Phase 2: **Grab** closes the fingers on a block and **Open** releases it.
